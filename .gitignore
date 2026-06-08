@@ -1,0 +1,10 @@
+# personal working files, not part of the deliverable
+ai_rules.md
+assignment_context.md
+inspiration/
+mockups/
+
+# os / editor cruft
+.DS_Store
+.cursor/
+*.log
