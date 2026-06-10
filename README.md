@@ -6,7 +6,7 @@
 
 Submitted by: **Muhammed Enes Bilek**
 
-Estimated time spent: **35** hours spent in total
+Estimated time spent: **10** hours spent in total
 
 ### Application Features
 
