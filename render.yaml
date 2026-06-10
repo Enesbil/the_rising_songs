@@ -1,0 +1,75 @@
+# Render Blueprint for "the rising songs"
+#
+# This file tells Render how to deploy the site. The whole project is
+# already plain HTML/CSS/JS that runs in the browser, so there is no
+# build step — Render just needs to serve the files at the repo root.
+#
+# How to deploy:
+#   1. Push this repo to GitHub.
+#   2. In the Render dashboard click "New" -> "Blueprint", point it at
+#      the repo. Render reads this file and creates the service.
+#   3. After the first deploy, Render gives you a *.onrender.com URL.
+#
+# IMPORTANT: this site reads window.APP_CONFIG.OPENROUTER_API_KEY from
+# config.js at runtime, but config.js is gitignored (the real key never
+# ships to GitHub). For Render, we work around that by writing a
+# config.js at build time from the OPENROUTER_API_KEY env var that you
+# set in the Render dashboard. See `buildCommand` below.
+#
+# Spec reference: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    runtime: static
+    name: the-rising-songs
+    autoDeployTrigger: commit
+
+    # No real build — we just generate config.js from the env var so
+    # the browser can read the OpenRouter key at runtime.
+    buildCommand: |
+      cat > config.js <<EOF
+      window.APP_CONFIG = {
+        OPENROUTER_API_KEY: "${OPENROUTER_API_KEY}",
+        OPENROUTER_MODELS: [
+          "openai/gpt-oss-120b:free",
+          "openai/gpt-oss-20b:free",
+          "nvidia/nemotron-3-nano-30b-a3b:free",
+          "meta-llama/llama-3.3-70b-instruct:free",
+          "qwen/qwen3-next-80b-a3b-instruct:free",
+          "z-ai/glm-4.5-air:free"
+        ]
+      };
+      EOF
+
+    # The repo root IS the publish directory — index.html, style.css,
+    # script.js, data/, assets/, scripts/, config.js (generated above)
+    # all sit at the top level.
+    staticPublishPath: ./
+
+    envVars:
+      # Set this in the Render dashboard, NOT in this file. `sync: false`
+      # tells Render this is a secret you'll fill in by hand so it never
+      # gets committed to git.
+      - key: OPENROUTER_API_KEY
+        sync: false
+
+    # Make /playlists work as well as /playlists.html so the chip
+    # links and any deep-link URLs stay tidy.
+    routes:
+      - type: rewrite
+        source: /playlists
+        destination: /playlists.html
+
+    headers:
+      # Sensible defaults for a static site. None of these are strictly
+      # required but they raise a Lighthouse score and keep the site
+      # from being framed by other origins.
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: X-Frame-Options
+        value: DENY

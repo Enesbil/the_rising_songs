@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>the rising songs, featured</title>
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!--
+  data-page="featured" tells script.js which page is loaded. The same
+  script.js runs on both pages, but it only runs the rendering code
+  for the page named here (search script.js for `body.dataset.page`).
+-->
+<body data-page="featured">
+  <!--
+    .app is a CSS Grid that lays out the page in two columns and two
+    rows. See style.css "App shell" section for the diagram.
+
+    Top-level layout:
+      <aside class="sidebar"> ... </aside>   <- left column
+      <header class="topbar"> ... </header>  <- top of right column
+      <main class="main"> ... </main>        <- bottom of right column
+
+    The sidebar uses <aside> (semantic landmark for "secondary nav"),
+    topbar uses <header>, main uses <main>, footer uses <footer>.
+  -->
+  <div class="app">
+
+    <!--
+      Sidebar.
+      Same on every page. The "active" class on a nav link highlights
+      the page we're currently on.
+    -->
+    <aside class="sidebar">
+      <div class="brand">
+        <!--
+          Logo wordmark: "the" + [vinyl logo with "rising" arcing above it] + "song."
+          The vinyl reads as a sun rising over a hill, and the curved
+          "rising" wraps over the top of the disc like a small banner.
+        -->
+        <span class="brand-text">the <svg class="brand-mark" viewBox="0 -8 32 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <!-- Arc that hugs the top of the vinyl. Endpoints sit just
+                 above the disc's top curvature; apex bows further up. -->
+            <path id="brand-rising-arc" d="M 4 12 Q 16 0 28 12" fill="none"/>
+            <!-- Crop the disc to a half-circle so the text baseline
+                 itself reads as the horizon (no separate hill needed). -->
+            <clipPath id="brand-hill"><rect x="0" y="0" width="32" height="22"/></clipPath>
+          </defs>
+
+          <!-- "rising" curved over the top of the disc. -->
+          <text class="brand-arc-text" text-anchor="middle">
+            <textPath href="#brand-rising-arc" startOffset="50%">rising</textPath>
+          </text>
+
+          <!-- Vinyl record, clipped so only the upper half shows. -->
+          <g clip-path="url(#brand-hill)">
+            <circle cx="16" cy="22" r="12" fill="#D9A441"/>
+            <circle cx="16" cy="22" r="11"   fill="none" stroke="#A87A26" stroke-width="0.45"/>
+            <circle cx="16" cy="22" r="9.5"  fill="none" stroke="#A87A26" stroke-width="0.45"/>
+            <circle cx="16" cy="22" r="8"    fill="none" stroke="#A87A26" stroke-width="0.45"/>
+            <circle cx="16" cy="22" r="6.5"  fill="none" stroke="#A87A26" stroke-width="0.45"/>
+            <ellipse cx="12" cy="17" rx="5.5" ry="3.5" fill="#FFFFFF" opacity="0.18"/>
+            <circle cx="16" cy="22" r="4.6" fill="#0F0D0B"/>
+            <circle cx="16" cy="22" r="0.7" fill="#D9A441"/>
+          </g>
+        </svg> songs</span>
+      </div>
+      <nav>
+        <a class="active" href="index.html">
+          <!-- A star, for "today's pick". -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+            <path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z"/>
+          </svg>
+          featured
+        </a>
+        <a href="playlists.html">
+          <!-- A stack of records, for "the shelf". -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="5" width="16" height="3" rx="1"/>
+            <rect x="4" y="11" width="16" height="3" rx="1"/>
+            <rect x="4" y="17" width="16" height="3" rx="1"/>
+          </svg>
+          the shelf
+        </a>
+      </nav>
+      <div class="divider"></div>
+      <div class="group-label">shelves</div>
+      <nav id="sidebar-shelves">
+        <a href="playlists.html?sort=recent" data-sort="recent">
+          <!-- Clock icon for recency. -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+          recently added
+        </a>
+        <a href="playlists.html?sort=likes" data-sort="likes">
+          <!-- Heart outline for liked. -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s-7-4.35-9.5-8.5C0 8 3 4 7 4c2 0 3.5 1 5 3 1.5-2 3-3 5-3 4 0 7 4 4.5 8.5C19 16.65 12 21 12 21z"/>
+          </svg>
+          most liked
+        </a>
+        <a href="playlists.html?sort=mood" data-sort="mood">
+          <!-- Smiley face for mood. -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="9" cy="10" r="0.6" fill="currentColor"/>
+            <circle cx="15" cy="10" r="0.6" fill="currentColor"/>
+            <path d="M8.5 14.5c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8"/>
+          </svg>
+          by mood
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Topbar. The search is decorative for this assignment. -->
+    <header class="topbar">
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="open menu" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/>
+        </svg>
+      </button>
+      <div class="search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+        <input placeholder="search for something you love...">
+      </div>
+    </header>
+
+    <!--
+      Main: Featured page content.
+      The hero card and Quick picks are populated from data.json by script.js.
+      Everything inside #featured-root gets rendered when the page loads
+      (and re-rendered if the user shuffles from inside the modal).
+    -->
+    <main class="main">
+      <div class="featured-stage">
+
+        <!--
+          Chip row. "Featured today" stays here (it's the page we're on);
+          the rest deep-link to the shelf with the matching sort/mood
+          filter pre-applied. Each anchor's href is a query string our
+          script.js parses on the playlists page.
+        -->
+        <div class="chip-row">
+          <button class="chip on">Featured today</button>
+          <a class="chip" href="playlists.html?sort=recent">Recently added</a>
+          <a class="chip" href="playlists.html?sort=likes">Most liked</a>
+          <a class="chip" href="playlists.html?mood=commute">Commute</a>
+          <a class="chip" href="playlists.html?mood=focus">Focus</a>
+          <a class="chip" href="playlists.html?mood=night+drive">Night drive</a>
+          <a class="chip" href="playlists.html?mood=slow+morning">Slow morning</a>
+          <a class="chip" href="playlists.html?mood=workout">Workout</a>
+        </div>
+
+        <!--
+          The featured root. script.js renders the hero card + tracklist
+          inside this. While data is loading, we show a loading placeholder.
+        -->
+        <div id="featured-root">
+          <div class="empty-state">Loading featured playlist...</div>
+        </div>
+      </div>
+
+      <!--
+        Footer. One-line credit + a link to the data source. Lives
+        inside main so it sits below the page content.
+      -->
+      <footer class="app-footer">
+        <span>the rising songs · cc-licensed playlists</span>
+        <span>tracks via <a href="https://archive.org" target="_blank" rel="noopener">internet archive</a></span>
+      </footer>
+    </main>
+  </div>
+
+  <!--
+    Same modal as on playlists.html. Opening any playlist (hero card,
+    Quick picks tracklist, or "More from the shelf" carousel) opens
+    this modal in place. Hidden until script.js adds "is-open".
+  -->
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+    <div class="modal-content" id="modal-content">
+      <div class="modal-head">
+        <div class="l">
+          <span class="dim">Playlist</span>
+          <span id="modal-title-mini">—</span>
+        </div>
+        <button class="modal-close" id="modal-close" title="close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M6 6l12 12M6 18L18 6"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-meta">
+          <div class="record" id="modal-record" style="--size: 240px; --peek: 35%;">
+            <div class="cover"></div>
+            <div class="vinyl"></div>
+          </div>
+          <h2 id="modal-title">—</h2>
+          <div class="by" id="modal-author">—</div>
+          <div class="meta-line" id="modal-meta">—</div>
+          <div class="actions">
+            <button class="play-fab" id="modal-play" title="play">
+              <svg id="modal-play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5 3l16 9-16 9z"/>
+              </svg>
+            </button>
+            <button class="icon-btn" id="modal-next" title="next track" aria-label="next track">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 4l11 8-11 8z"/>
+                <rect x="18" y="4" width="2.5" height="16"/>
+              </svg>
+            </button>
+            <button class="icon-btn" id="modal-shuffle" title="shuffle" aria-label="shuffle">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 3h5v5"/><path d="M4 20L21 3"/>
+                <path d="M21 16v5h-5"/><path d="M15 15l6 6"/>
+                <path d="M4 4l5 5"/>
+              </svg>
+            </button>
+          </div>
+          <div class="ai-card">
+            <div class="head">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z"/>
+              </svg>
+              About this playlist
+              <span class="status" id="ai-status"></span>
+            </div>
+            <div class="text" id="ai-text">Click "Get description" for an AI-generated note about this playlist.</div>
+            <button class="ai-btn" id="ai-btn">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z"/>
+              </svg>
+              Get description
+            </button>
+          </div>
+        </div>
+        <div class="modal-tracks">
+          <div class="tab-bar">
+            <span class="tab on" data-tab="tracklist">Tracklist</span>
+            <span class="tab" data-tab="about">About</span>
+            <span class="spacer"></span>
+            <span class="total" id="modal-total">—</span>
+          </div>
+          <div id="modal-tracklist"></div>
+          <!-- About panel: full description from Internet Archive,
+               plus a small footer with album, year, license, link. -->
+          <div id="modal-about" class="modal-about" hidden></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    The single audio element used for playback. We keep one element on
+    the page and just swap its src when the user clicks a different
+    track. Hidden (no controls) since we drive it with our own buttons.
+  -->
+  <audio id="audio-player" preload="none"></audio>
+
+  <!--
+    Scripts run in the order they appear. config.js sets a global
+    window.APP_CONFIG (with the OpenRouter API key); script.js reads
+    that global, so it MUST come second. Both load at the bottom of
+    <body> so the DOM is fully parsed by the time JS runs.
+
+    config.js is in .gitignore — only config.example.js (a placeholder
+    template) gets committed to the repo.
+  -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

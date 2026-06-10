@@ -1,0 +1,19 @@
+<svg viewBox="0 4 32 24" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="brand-hill">
+      <rect x="0" y="0" width="32" height="22"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#brand-hill)">
+    <circle cx="16" cy="22" r="12" fill="#D9A441"/>
+    <circle cx="16" cy="22" r="11"   fill="none" stroke="#A87A26" stroke-width="0.45"/>
+    <circle cx="16" cy="22" r="9.5"  fill="none" stroke="#A87A26" stroke-width="0.45"/>
+    <circle cx="16" cy="22" r="8"    fill="none" stroke="#A87A26" stroke-width="0.45"/>
+    <circle cx="16" cy="22" r="6.5"  fill="none" stroke="#A87A26" stroke-width="0.45"/>
+    <ellipse cx="12" cy="17" rx="5.5" ry="3.5" fill="#FFFFFF" opacity="0.18"/>
+    <circle cx="16" cy="22" r="4.6" fill="#0F0D0B"/>
+    <circle cx="16" cy="22" r="0.7" fill="#D9A441"/>
+  </g>
+  <path d="M 0 24 Q 16 16 32 24 L 32 28 L 0 28 Z" fill="#1B1916"/>
+  <path d="M 0 24 Q 16 16 32 24" stroke="#3A332B" stroke-width="0.5" fill="none"/>
+</svg>

@@ -1,0 +1,1736 @@
+/* =================================================================
+   the rising songs, styles.
+
+   This file is split into sections so it's easy to find things:
+     1. Tokens (colors, fonts, sizes)
+     2. Resets and base
+     3. App shell (sidebar + topbar + main)
+     4. Buttons
+     5. The vinyl record (pure CSS)
+     6. Featured page (index.html)
+     7. All Playlists page (playlists.html)
+     8. Modal
+================================================================= */
+
+
+/* ----- 1. Tokens -------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Colors. Warm dark backdrop, amber accent. */
+  --bg: #131110;
+  --surface: #1B1916;
+  --surface-hi: #23201C;
+  --line: rgba(255, 240, 220, 0.08);
+  --line-hi: rgba(255, 240, 220, 0.16);
+  --text: #F0EAD8;
+  --text-soft: #C9C2B0;
+  --muted: #8A8275;
+  --accent: #D9A441;
+  --accent-hi: #E8B95C;
+  --accent-soft: rgba(217, 164, 65, 0.14);
+  --scrim: rgba(8, 7, 6, 0.86);
+
+  /* Fonts. Geist sans for everything, Geist mono only on hard data. */
+  --f-sans: 'Geist', system-ui, sans-serif;
+  --f-mono: 'Geist Mono', ui-monospace, monospace;
+
+  /* Sizes. */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --sidebar-w: 248px;
+  --topbar-h: 80px;
+}
+
+
+/* ----- 2. Resets and base ---------------------------------------- */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--f-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; padding: 0; }
+img { display: block; max-width: 100%; }
+
+
+/* ----- 3. App shell ----------------------------------------------
+   The whole page is one CSS grid with two columns and two rows:
+
+       +----------+---------------------------+
+       | sidebar  | topbar                    |   <- row 1: var(--topbar-h)
+       |          +---------------------------+
+       |          | main content              |   <- row 2: 1fr (rest)
+       +----------+---------------------------+
+        ^^^ 248px            ^^^ 1fr (remaining width)
+
+   The sidebar spans both rows (`grid-row: 1 / 3` reaches across rows
+   1 and 2). The topbar takes only row 1, column 2. Main content takes
+   row 2, column 2.
+
+   `1fr` means "1 fraction of leftover space." Since the first column
+   is a fixed 248px, the second column gets all the rest of the width.
+------------------------------------------------------------------ */
+
+.app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-rows: var(--topbar-h) 1fr;
+  /* min-height: 100vh keeps the grid filling the viewport even if the
+     content is short. Without it, the sidebar's right border would
+     stop where content ends and look chopped off. */
+  min-height: 100vh;
+}
+
+.sidebar {
+  /* grid-row: 1 / 3 means "start at row line 1, end at row line 3."
+     With 2 rows, line 3 is the bottom edge — so the sidebar spans
+     both rows top to bottom. */
+  grid-row: 1 / 3;
+  border-right: 1px solid var(--line);
+  padding: 0 14px 18px;
+  background: var(--bg);
+}
+/*
+  The brand row mirrors the structure of the nav links below it:
+  same horizontal padding (14px) and same icon-to-text gap (14px).
+  That puts the logo icon on the same vertical line as every nav
+  icon, and the wordmark on the same vertical line as every nav
+  label. Brand height matches the topbar so the logo + wordmark
+  sit on the same horizontal band as the search bar.
+
+  Bottom margin is sized so the first nav link's text center lines
+  up with the chip row's center on the page (topbar 60 + chip-row
+  top-padding 24 → first link's text center needs +18px gap here).
+*/
+.sidebar .brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  height: var(--topbar-h);
+  padding: 0px 14px 0;
+  margin-bottom: 20px;
+  font-family: var(--f-sans);
+  font-weight: 600;
+  font-size: 27.5px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.15;
+  margin-top: -9px;
+  margin-left: -8px;
+}
+/* Wordmark styling. */
+.sidebar .brand .brand-text {
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+/*
+  The vinyl logo sits inline between "the" and "song." The disc's
+  baseline lines up with the surrounding text baseline, while the
+  curved "rising" wraps over the top of the disc like a small banner.
+  The viewBox extends above 0 so the arc text has room to render.
+*/
+.sidebar .brand .brand-mark {
+  display: inline-block;
+  vertical-align: baseline;
+  width: 2em;
+  height: 2.4em;
+  margin: 0 0.18em -0.18em;
+  overflow: visible;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+.sidebar .brand .brand-mark .brand-arc-text {
+  font-family: var(--f-sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: -0.02em;
+  fill: var(--accent);
+}
+.sidebar nav { display: flex; flex-direction: column; gap: 2px; }
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 14px;
+  border-radius: var(--r-md);
+  color: var(--text-soft);
+  font-size: 15px;
+  transition: background .15s, color .15s;
+}
+.sidebar nav a:hover { background: var(--surface); color: var(--text); }
+/*
+  Active tab is just a darker pill-shaped highlight. No yellow bar, no
+  text shift. The lift is the bg color and the brighter text color.
+*/
+.sidebar nav a.active {
+  background: var(--surface-hi);
+  color: var(--text);
+}
+.sidebar nav svg { flex-shrink: 0; }
+.sidebar .divider { height: 1px; background: var(--line); margin: 18px 8px; }
+.sidebar .group-label {
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: -0.005em;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 56px;
+  background: var(--bg);
+}
+.topbar .search {
+  flex: 0 1 540px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  color: var(--muted);
+}
+.topbar .search:focus-within { border-color: var(--line-hi); color: var(--text-soft); }
+.topbar .search input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  color: var(--text);
+}
+.topbar .search input::placeholder { color: var(--muted); }
+.topbar .spacer { flex: 1; }
+
+/* Hamburger toggle in the topbar. Hidden on desktop; the responsive
+   block at the bottom of this file shows it once the sidebar collapses
+   off-canvas. */
+.sidebar-toggle {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r-md);
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  background: transparent;
+  border: 1px solid transparent;
+  flex-shrink: 0;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.sidebar-toggle:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--line);
+}
+.topbar .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface-hi);
+  border: 1px solid var(--line-hi);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+
+
+.main {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.main > .featured-stage,
+.main > .playlists-stage { flex: 1; }
+
+/*
+  Footer line at the bottom of the main column.
+  One line, plain text. No top border so it stays minimalist.
+*/
+.app-footer {
+  padding: 14px 48px;
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.app-footer a { color: var(--text-soft); }
+.app-footer a:hover { color: var(--text); }
+
+
+/*
+  Now-playing hint. A small floating panel pinned to the bottom-right
+  whenever a track is playing. Slides up into view when .open is set.
+  Audio is the source of truth; this is just a visual hook for the user.
+*/
+.now-playing-hint {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 10px;
+  background: var(--surface);
+  border: 1px solid var(--line-hi);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  min-width: 280px;
+  max-width: 360px;
+  transform: translateY(120%);
+  opacity: 0;
+  transition: transform .25s cubic-bezier(.2,.6,.3,1), opacity .2s;
+  pointer-events: none;
+}
+.now-playing-hint.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Brief toast shown when an audio source fails to load. Lives in the
+   same bottom-right corner as the now-playing hint, but slightly
+   above it (different `bottom`) so the two can coexist if a song
+   fails mid-session. */
+.audio-error-toast {
+  position: fixed;
+  bottom: 84px;
+  right: 16px;
+  /* Above the modal-overlay (100) so the toast is visible even when
+     the user triggered the error from inside the modal. */
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(74, 31, 28, 0.95);
+  color: #f1c0bb;
+  border: 1px solid rgba(217, 80, 65, 0.35);
+  border-radius: 10px;
+  font-size: 13px;
+  max-width: 320px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  transform: translateY(8px);
+  opacity: 0;
+  transition: transform .2s cubic-bezier(.2,.6,.3,1), opacity .2s;
+  pointer-events: none;
+}
+.audio-error-toast.open {
+  transform: translateY(0);
+  opacity: 1;
+}
+.audio-error-toast svg { flex-shrink: 0; color: #f1c0bb; }
+@media (max-width: 540px) {
+  .audio-error-toast {
+    left: 12px;
+    right: 12px;
+    bottom: 76px;
+    max-width: none;
+  }
+}
+.now-playing-hint .np-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.now-playing-hint .np-thumb svg,
+.now-playing-hint .np-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.now-playing-hint .np-info { min-width: 0; flex: 1; }
+.now-playing-hint .np-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+.now-playing-hint .np-sub {
+  font-size: 11.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+.now-playing-hint .np-toggle,
+.now-playing-hint .np-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  flex-shrink: 0;
+}
+.now-playing-hint .np-toggle { background: var(--accent); color: var(--bg); }
+.now-playing-hint .np-toggle:hover { background: var(--accent-hi); }
+.now-playing-hint .np-close:hover { background: var(--surface-hi); color: var(--text); }
+
+
+/* ----- 4. Buttons ------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--line-hi);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  background: var(--surface);
+  color: var(--text);
+  transition: background .15s, border-color .15s, transform .12s;
+}
+.btn:hover { background: var(--surface-hi); border-color: var(--text-soft); }
+.btn:active { transform: scale(0.98); }
+.btn.primary {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  font-weight: 500;
+}
+.btn.primary:hover { background: var(--accent-hi); border-color: var(--accent-hi); }
+.btn.ghost { background: transparent; }
+
+/* Big circular play button, used on the modal. */
+.play-fab {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  box-shadow: 0 4px 12px rgba(217, 164, 65, 0.18);
+  transition: transform .15s, background .15s;
+}
+.play-fab:hover { transform: scale(1.08); background: var(--accent-hi); }
+
+/* Small circular icon button. */
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  transition: background .15s, color .15s;
+}
+.icon-btn:hover { background: var(--surface); color: var(--text); }
+
+
+/* ----- 5. The vinyl record (pure CSS) ----------------------------
+
+   Each cover gets a vinyl peeking out from behind it. The vinyl is
+   a circle with concentric grooves drawn using gradients, plus a
+   colored center label and a spindle hole. Override --size and
+   --peek per usage. The --label color comes from the cover.
+------------------------------------------------------------------ */
+
+/*
+  The record block contains BOTH the cover and the peeking vinyl.
+  Its total width includes the peek so the whole unit centers cleanly
+  in any column. The cover sits at left:0 inside, the vinyl peeks out
+  to the right by --peek (a percentage of cover width).
+*/
+.record {
+  --size: 280px;
+  --peek: 50%;
+  position: relative;
+  /* Total width = cover + peek so the record block is self-contained. */
+  width: calc(var(--size) * (1 + var(--peek) / 100%));
+  height: var(--size);
+  flex-shrink: 0;
+}
+.record .cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--size);
+  height: var(--size);
+  z-index: 2;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 12px 32px rgba(0, 0, 0, 0.5);
+}
+.record .cover svg, .record .cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.record .vinyl {
+  position: absolute;
+  top: 0;
+  /* Sit behind the cover, peeking out by --peek of the cover's width. */
+  left: var(--peek);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  z-index: 1;
+  /* Layered: glossy highlight, fine groove pattern, dark base. */
+  background:
+    radial-gradient(ellipse at 30% 25%, rgba(255, 255, 255, 0.18), transparent 35%),
+    repeating-radial-gradient(circle at center,
+      #0A0807 0,
+      #0A0807 0.5px,
+      #1A1614 1px,
+      #0A0807 1.5px),
+    radial-gradient(circle at center, #14110F 0%, #060504 100%);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(0, 0, 0, 0.4) inset;
+  /*
+    The vinyl has the spin animation ATTACHED at all times, but in a
+    paused state. Adding the .spinning class to .record (via JS, when
+    audio is playing) flips the animation-play-state to running and
+    the disc spins. Removing the class freezes it at the current angle.
+
+    `animation: <name> <duration> <timing> <iteration-count>`
+      - spin       -> the @keyframes block defined at the bottom
+      - 3.5s       -> one full rotation takes 3.5 seconds
+      - linear     -> constant speed (no easing in/out)
+      - infinite   -> repeat forever
+  */
+  animation: spin 3.5s linear infinite;
+  animation-play-state: paused;
+}
+.record.spinning .vinyl { animation-play-state: running; }
+.record .vinyl::before {
+  /* Center label, color comes from --label set by the cover. */
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36%;
+  height: 36%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.18), transparent 50%),
+    radial-gradient(circle at center, var(--label, var(--accent)) 0%, color-mix(in srgb, var(--label, var(--accent)) 60%, #000) 100%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+.record .vinyl::after {
+  /* Spindle hole. */
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4%;
+  height: 4%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--bg);
+  z-index: 2;
+}
+/* @keyframes defines a named timeline. The browser interpolates between
+   the listed states. Here, "from" and "to" mean 0% and 100% — at the
+   start the element is at 0deg, at the end it's at 360deg, full circle.
+   Combined with `animation: spin 3.5s linear infinite` above, the disc
+   rotates fully every 3.5s and loops forever. */
+@keyframes spin {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+
+
+/* ----- 6. Featured page (index.html) ----------------------------- */
+
+.featured-stage { padding: 16px 56px 64px; }
+
+.chip-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.chip {
+  font-family: var(--f-sans);
+  font-size: 12px;
+  padding: 7px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.chip:hover { background: var(--surface-hi); }
+.chip.on {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* The hero card on the featured page: cover on the left (320px),
+   info + buttons on the right (1fr = remaining space). */
+.hero {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+  padding: 28px;
+  /* Diagonal gradient: 135deg goes top-left to bottom-right. The two
+     stops are dark warm browns. */
+  background: linear-gradient(135deg, #2A1F18 0%, #1B1916 100%);
+  border-radius: var(--r-lg);
+  margin-bottom: 48px;
+  align-items: center;
+  /* `position: relative` here doesn't move the hero. It just makes
+     the hero the "anchor" for any absolutely-positioned children
+     (the ::before glow blob below). Without this, the blob's
+     position would be relative to the page instead. */
+  position: relative;
+  /* Clips the glow blob so it doesn't leak outside the rounded card. */
+  overflow: hidden;
+}
+/* ::before adds a "fake" element at the start of .hero. Used here to
+   paint a soft amber glow in the top-right corner. Pseudo-elements
+   need `content: ''` (even if empty) to actually render. */
+.hero::before {
+  content: '';
+  position: absolute;
+  /* Negative offsets push the blob partly outside the hero so only
+     the bottom-left quarter of the circle is visible — that's what
+     gives the "glow leaking in from the corner" effect. */
+  top: -120px;
+  right: -120px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  /* Radial gradient: amber center fading to transparent at 70% radius. */
+  background: radial-gradient(circle, rgba(217, 164, 65, 0.18), transparent 70%);
+  /* The blob is purely decorative — clicks should pass through to
+     whatever's underneath. */
+  pointer-events: none;
+}
+/* Bumping the cover and the text above the gradient blob (which has
+   default z-index of auto). z-index only works on positioned elements,
+   so we add position: relative without offsets. */
+.hero .left, .hero .right { position: relative; z-index: 2; }
+.hero .left { display: flex; justify-content: center; }
+
+/* Plain cover, no vinyl. Used on the Featured hero. */
+.hero-cover {
+  width: 280px;
+  height: 280px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 12px 32px rgba(0, 0, 0, 0.5);
+}
+.hero-cover svg, .hero-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Visible focus ring for keyboard activation on the hero cover. */
+.hero-cover:focus { outline: none; }
+.hero-cover:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.hero .featured-cap {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-family: var(--f-sans);
+  font-weight: 500;
+  font-size: 44px;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  margin: 0 0 12px;
+}
+.hero .by {
+  font-size: 15px;
+  color: var(--text-soft);
+  margin-bottom: 6px;
+}
+.hero .meta-line {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.hero .actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+/* Section header used above each tracklist row group. */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px 0 16px;
+}
+.section-head .l { display: flex; align-items: baseline; gap: 12px; }
+.section-head h2 {
+  font-family: var(--f-sans);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.section-head .sub-cap { font-size: 13px; color: var(--muted); }
+
+/* The pager pair on a section header (small left/right arrow buttons). */
+.pager { display: inline-flex; gap: 4px; }
+.pager button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s;
+}
+.pager button:hover { background: var(--surface-hi); color: var(--text); }
+
+/*
+  "More from the shelf" carousel on the Featured page.
+  Horizontal-scrolling row of compact playlist cards. Pager arrows on the
+  section head call carousel.scrollBy() to move it.
+*/
+.carousel {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(160px, 1fr);
+  gap: 14px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 8px;
+  /* Hide the scrollbar so the rail looks clean, the pager arrows scroll it. */
+  scrollbar-width: none;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.carousel .card { cursor: pointer; }
+
+/* Quick picks: 2-column grid of song rows. */
+.quick-picks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 32px;
+  margin-top: 12px;
+}
+.pick {
+  display: grid;
+  grid-template-columns: 56px 1fr 80px 28px;
+  gap: 14px;
+  align-items: center;
+  padding: 8px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background .15s;
+}
+.pick:hover { background: var(--surface); }
+.pick .thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: var(--surface-hi);
+}
+.pick .thumb svg,
+.pick .thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pick .info { min-width: 0; }
+.pick .info .t {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pick .info .s {
+  font-size: 12.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pick .dur {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+}
+.pick .play-icon {
+  color: var(--muted);
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .15s, color .15s;
+}
+.pick .play-icon .ico-pause { display: none; }
+.pick:hover .play-icon { opacity: 1; }
+.pick.playing { background: var(--surface); }
+.pick.playing .play-icon { opacity: 1; color: var(--accent); }
+.pick.playing .play-icon .ico-play { display: none; }
+.pick.playing .play-icon .ico-pause { display: block; }
+.pick.playing .info .t { color: var(--accent); }
+/* When audio is paused, flip the playing row's icon back to a play
+   triangle so the user can see the track is paused, not active. */
+body.audio-paused .pick.playing .play-icon .ico-play { display: block; }
+body.audio-paused .pick.playing .play-icon .ico-pause { display: none; }
+
+
+/* ----- 7. All Playlists page (playlists.html) -------------------- */
+
+/*
+  Match the Featured page's horizontal padding so the chip row and
+  content align across pages. Vertical padding kept tight enough that
+  two rows of cards comfortably fit one viewport on a 13" laptop.
+*/
+.playlists-stage { padding: 16px 56px 24px; }
+
+.page-head {
+  margin: 4px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.page-head h1 {
+  font-family: var(--f-sans);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+}
+.page-head .right {
+  font-size: 13px;
+  color: var(--muted);
+}
+/* Round "+" button in the page head, matches the existing icon-btn
+   look but flat (no background by default) so it sits quietly next
+   to the h1. */
+.page-head-add {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  background: transparent;
+  border: 1px solid var(--line);
+  transition: background .15s, color .15s, border-color .15s, transform .15s;
+}
+.page-head-add:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  transform: scale(1.05);
+}
+.page-head-add:focus { outline: none; }
+.page-head-add:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/*
+  The playlist grid. 4 columns on desktop, dropping down as the screen
+  shrinks so cards never get too narrow to read.
+
+  `repeat(4, 1fr)` is shorthand for `1fr 1fr 1fr 1fr` — four equal
+  columns, each taking 1 fraction of the available width.
+
+  `gap: 18px` is a single property that sets BOTH row and column gaps
+  in the grid. (You can split them: `row-gap` / `column-gap`.)
+
+  Each @media query narrows the grid as the viewport shrinks. Cascade
+  order matters: the `(max-width: 1100px)` rule overrides the default
+  4-col rule on screens 1100px and narrower; then 780 wins below 780;
+  then 480 wins below 480.
+*/
+.playlist-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+@media (max-width: 1100px) {
+  .playlist-cards { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 780px) {
+  .playlist-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .playlist-cards { grid-template-columns: 1fr; }
+}
+
+/* One playlist card: art on top, title + author below, like row. */
+.card {
+  display: block;
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+.card:hover { transform: translateY(-2px); }
+/* Visible focus ring for keyboard users on the carousel cards (which
+   use role="button" + tabindex). The default browser ring is invisible
+   on dark backgrounds. */
+.card:focus { outline: none; }
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: var(--r-md);
+}
+.card .art {
+  position: relative;
+  margin-bottom: 8px;
+  border-radius: var(--r-md);
+  overflow: visible;
+}
+.card .art .record {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+.card .art .record .cover { aspect-ratio: 1; height: auto; }
+
+/* Plain cover (no vinyl) used on grid cards and the featured carousel.
+   Capped so big monitors don't blow it up to gigantic sizes. */
+.card .art .cover-only {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--surface-hi);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: transform .2s ease;
+}
+.card:hover .art .cover-only { transform: translateY(-2px); }
+.card .art .cover-only svg, .card .art .cover-only img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Edit / delete tools on each card. Sit in the top-right corner of
+   the cover. Hidden by default, fade in on hover or focus so they
+   don't clutter the grid in idle state. */
+.card .card-tools {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity .15s ease;
+  z-index: 2;
+}
+.card:hover .card-tools,
+.card:focus-within .card-tools { opacity: 1; }
+/* Always show on touch devices since :hover doesn't work there. */
+@media (hover: none) {
+  .card .card-tools { opacity: 1; }
+}
+.card-tool {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 13, 11, 0.7);
+  color: var(--text-soft);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.card-tool:hover {
+  background: var(--surface-hi);
+  color: var(--text);
+  border-color: var(--line-hi);
+}
+.card-tool[data-action="delete"]:hover {
+  background: #4a1f1c;
+  color: #f1c0bb;
+  border-color: #6a2a26;
+}
+.card-tool:focus { outline: none; }
+.card-tool:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.card .title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+  margin: 0 0 3px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card .sub {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.card .like-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+/* Heart icon on the card. */
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--muted);
+  padding: 4px 6px;
+  border-radius: 999px;
+  transition: color .15s, background .15s;
+}
+.like-btn:hover { color: var(--accent); background: var(--surface); }
+.like-btn.liked { color: var(--accent); }
+.like-btn.bumping svg {
+  /*
+    Plays once on the heart SVG when the user likes a playlist (JS
+    adds the .bumping class for ~400ms then removes it). Default
+    iteration-count is 1, so without `infinite` the animation runs
+    once and stops. `ease` is the timing function (slow start, fast
+    middle, slow end — feels organic).
+  */
+  animation: like-bump .35s ease;
+}
+/* Multi-stage keyframes use percentages: scale up to 1.35, dip to
+   0.95, settle back to 1. The little overshoot + dip is what gives
+   it that "pop" feel instead of a flat scale. */
+@keyframes like-bump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  70%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* Empty state if data.json is empty or fails to load. */
+.empty-state {
+  padding: 80px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+
+/* ----- 8. Modal --------------------------------------------------
+   Two pieces:
+     .modal-overlay  — full-viewport dim layer ("scrim"). Centers the
+                       modal panel in the middle of the screen.
+     .modal-content  — the actual rounded card with the playlist info.
+
+   The `is-open` class is added by JS to make the modal visible. Until
+   it's added, opacity is 0 and pointer-events: none means the modal
+   isn't even there as far as clicks are concerned.
+------------------------------------------------------------------ */
+
+.modal-overlay {
+  /* position: fixed pins this to the viewport (doesn't scroll with
+     the page). `inset: 0` is shorthand for top:0; right:0; bottom:0;
+     left:0 — meaning the overlay covers the entire viewport. */
+  position: fixed;
+  inset: 0;
+  background: var(--scrim);
+  /* Flex centers the modal panel in the middle of the viewport.
+     align-items handles the vertical axis, justify-content the horizontal. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  /* z-index 100 keeps the modal above almost everything else (hint=90,
+     sidebar=80). The audio-error toast lives at 110 so it can sit
+     above the modal when an error happens during playback. */
+  z-index: 100;
+  /* Hidden by default. The opacity transition gives a gentle fade-in
+     when JS adds .is-open. pointer-events: none means clicks pass
+     through to whatever's underneath while the overlay is invisible. */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 1080px;
+  /* `max-height: 90vh` keeps the modal from being taller than 90% of
+     the viewport, which prevents the close button from disappearing
+     off-screen when there's a lot of content. The modal-body inside
+     scrolls when content exceeds this. */
+  max-height: 90vh;
+  background: var(--bg);
+  border: 1px solid var(--line-hi);
+  border-radius: var(--r-lg);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  /* Starts 20px below its final position. When .is-open is added
+     (via the rule below) it slides up to translateY(0). The custom
+     cubic-bezier curve is a soft "decelerate" — fast at first, then
+     gently arrives. */
+  transform: translateY(20px);
+  transition: transform .25s cubic-bezier(.2, .6, .3, 1);
+}
+.modal-overlay.is-open .modal-content { transform: translateY(0); }
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--line);
+}
+.modal-head .l {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text);
+}
+.modal-head .l .dim { color: var(--muted); }
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+.modal-close:hover { background: var(--surface); color: var(--text); }
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 40px;
+  padding: 32px 36px;
+  overflow-y: auto;
+}
+@media (max-width: 800px) {
+  .modal-body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.modal-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+/*
+  The record block now self-contains its cover + peek, so no padding
+  hack is needed. We just give it bottom margin before the title.
+*/
+.modal-meta .record { margin-bottom: 24px; }
+.modal-meta h2 {
+  font-family: var(--f-sans);
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 6px;
+}
+.modal-meta .by {
+  font-size: 14px;
+  color: var(--text-soft);
+  margin-bottom: 4px;
+}
+.modal-meta .meta-line {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.modal-meta .actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* The AI description card. Shown below the play row. */
+.ai-card {
+  width: 100%;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  text-align: left;
+}
+.ai-card .head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.ai-card .head .status {
+  margin-left: auto;
+  color: var(--muted);
+  font-weight: 400;
+}
+.ai-card .text {
+  font-size: 13.5px;
+  color: var(--text-soft);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+.ai-card .ai-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  padding: 6px 10px;
+  border: 1px solid var(--accent);
+  border-radius: var(--r-sm);
+  transition: background .15s, color .15s;
+}
+.ai-card .ai-btn:hover { background: var(--accent); color: var(--bg); }
+.ai-card .ai-btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+/* Pulsing dots for the AI loading state. */
+.dots { display: inline-flex; gap: 3px; }
+.dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.dots span:nth-child(2) { animation-delay: 0.18s; }
+.dots span:nth-child(3) { animation-delay: 0.36s; }
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.4); }
+}
+
+/* The right column of the modal: tabs + tracklist. */
+.modal-tracks { padding-top: 4px; min-width: 0; }
+.tab-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+.tab {
+  padding: 12px 4px;
+  font-family: var(--f-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+}
+.tab.on {
+  color: var(--text);
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: -1px;
+}
+.tab-bar .spacer { flex: 1; }
+.tab-bar .total {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--muted);
+  padding: 12px 0;
+}
+
+/* About panel: shown when the user picks the About tab. Holds the
+   archive.org description plus a small key/value list of facts. */
+.modal-about {
+  padding: 12px 4px 4px;
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+.modal-about .about-desc {
+  margin: 0 0 18px;
+  white-space: pre-wrap;
+}
+.modal-about .about-facts {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 6px 14px;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+.modal-about .about-facts dt {
+  color: var(--muted);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-top: 2px;
+}
+.modal-about .about-facts dd {
+  margin: 0;
+  color: var(--text);
+  word-break: break-word;
+}
+.modal-about a { color: var(--accent); }
+.modal-about a:hover { color: var(--accent-hi); }
+
+.track {
+  display: grid;
+  grid-template-columns: 28px 1fr 1fr 60px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background .15s;
+}
+.track:hover { background: var(--surface); }
+.track.playing { background: var(--surface); }
+.track.playing .num,
+.track.playing .title { color: var(--accent); }
+.track .num {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+.track .title {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 400;
+}
+.track .artist {
+  font-size: 13px;
+  color: var(--muted);
+}
+.track .dur {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+}
+
+
+/* =================================================================
+   9. Responsive
+
+   Breakpoints (desktop-first):
+     - 1100px -> playlist grid drops to 3 cols, hero typography softens
+     - 900px  -> hero stacks vertically; carousel shrinks
+     - 720px  -> sidebar collapses off-canvas, hamburger appears
+     - 540px  -> playlist grid -> 2 cols, modal goes full-screen
+     - 380px  -> playlist grid -> 1 col, tight padding everywhere
+
+   The earlier `.playlist-cards` and `.modal-body` queries are kept as
+   the source of truth for those components; this section only covers
+   the cross-cutting bits (sidebar, topbar, padding, hero, carousel).
+================================================================= */
+
+/* --- Medium desktop: tighten outer padding so 14" laptops still see
+       3 cards in a row without scrolling. ----------------------- */
+@media (max-width: 1100px) {
+  .featured-stage { padding: 16px 36px 64px; }
+  .playlists-stage { padding: 16px 36px 24px; }
+  .topbar { padding: 0 36px; }
+  .hero { grid-template-columns: 260px 1fr; gap: 24px; padding: 22px; }
+  .hero-cover { width: 240px; height: 240px; }
+  .hero h1 { font-size: 38px; }
+}
+
+/* --- Tablet: hero stacks, carousel cards shrink. --------------- */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 20px;
+  }
+  .hero .left { justify-content: flex-start; }
+  .hero-cover { width: 200px; height: 200px; }
+  .hero h1 { font-size: 32px; }
+  .hero .meta-line { margin-bottom: 18px; }
+  .carousel { grid-auto-columns: minmax(140px, 1fr); }
+  .section-head h2 { font-size: 20px; }
+  .now-playing-hint {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    max-width: none;
+  }
+}
+
+/* --- Mobile: sidebar slides off-canvas, hamburger toggles it. ---
+   The sidebar is taken out of the grid (absolute-positioned overlay)
+   so the main column can fill the full width. A scrim sits beneath
+   the sidebar when "sidebar-open" is on the body. */
+@media (max-width: 720px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 280px;
+    z-index: 80;
+    transform: translateX(-100%);
+    transition: transform .25s cubic-bezier(.2,.6,.3,1);
+    overflow-y: auto;
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.4);
+  }
+  body.sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+  /* Backdrop scrim, only visible when the sidebar is open. */
+  body.sidebar-open::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: var(--scrim);
+    z-index: 70;
+    opacity: 1;
+    transition: opacity .2s;
+  }
+
+  .sidebar-toggle { display: inline-flex; }
+
+  .topbar {
+    padding: 0 16px;
+    gap: 12px;
+  }
+  .topbar .search { padding: 10px 14px; }
+
+  .featured-stage { padding: 12px 16px 48px; }
+  .playlists-stage { padding: 12px 16px 24px; }
+  .app-footer { padding: 14px 16px; flex-direction: column; align-items: flex-start; gap: 4px; }
+
+  .chip-row { gap: 6px; }
+  .chip { padding: 6px 12px; font-size: 11.5px; }
+
+  .hero { margin-bottom: 28px; }
+  .hero h1 { font-size: 28px; }
+  .hero-cover { width: 180px; height: 180px; }
+  .section-head { margin: 24px 0 12px; }
+  .pager { display: none; } /* swipe instead of arrow buttons */
+}
+
+/* --- Small phones: tighter still. ----------------------------- */
+@media (max-width: 540px) {
+  /* Modal goes full-bleed so the cover + tracklist read at phone size. */
+  .modal-overlay { padding: 0; }
+  .modal-content {
+    max-width: none;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    border: 0;
+  }
+  .modal-body { padding: 20px 16px; gap: 18px; }
+  .modal-meta .record { --size: 180px !important; }
+  .modal-meta h2 { font-size: 22px; }
+
+  .hero h1 { font-size: 24px; letter-spacing: -0.02em; }
+  .hero-cover { width: 160px; height: 160px; }
+  .hero { padding: 16px; }
+  .hero .actions .btn { font-size: 13px; padding: 8px 14px; }
+
+  .pick { grid-template-columns: 44px 1fr 56px 24px; gap: 10px; padding: 6px; }
+  .pick .thumb { width: 44px; height: 44px; }
+
+  /* 3 columns now since the artist cell is removed entirely. Using
+     `display: none` would leave a phantom 80px gap because grid still
+     reserves the slot. */
+  .track { grid-template-columns: 24px 1fr 56px; gap: 10px; padding: 8px 10px; }
+  .track .artist { display: none; }
+
+  .now-playing-hint { padding: 8px 12px 8px 8px; }
+  .now-playing-hint .np-thumb { width: 36px; height: 36px; }
+}
+
+/* --- Very narrow: 1-column playlist grid + the smallest typography
+       that still reads comfortably. ------------------------------ */
+@media (max-width: 380px) {
+  .featured-stage { padding: 10px 12px 36px; }
+  .playlists-stage { padding: 10px 12px 24px; }
+  .sidebar { width: 88vw; }
+  .hero h1 { font-size: 22px; }
+  .hero-cover { width: 140px; height: 140px; }
+}
+
+
+/* =================================================================
+   10. Playlist form (stretch features: add / edit)
+
+   The form modal reuses .modal-overlay and .modal-content for the
+   scrim + slide-up animation, then adds .form-content / .form-overlay
+   for the smaller, vertically-scrolling form panel.
+================================================================= */
+
+.form-overlay .modal-content.form-content {
+  max-width: 520px;
+  /* Form is shorter than the playlist modal, so cap at content height
+     while still letting it scroll on small screens. */
+  max-height: min(86vh, 720px);
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 26px 24px;
+  overflow-y: auto;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-row label,
+.form-songs-head label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.form-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Inputs and selects use the same surface treatment as the search
+   bar so the form blends with the rest of the app. */
+.playlist-form input,
+.playlist-form select {
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color .15s, background .15s;
+}
+.playlist-form input::placeholder { color: var(--muted); }
+.playlist-form input:focus,
+.playlist-form select:focus {
+  border-color: var(--accent);
+  background: var(--surface-hi);
+}
+.playlist-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  /* Custom chevron, in muted color so it doesn't fight the amber accent. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A8275' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+/* Songs section: header row with "Songs" label + add-song button,
+   then the list of song rows below. */
+.form-songs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+.form-add-song {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-soft);
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.form-add-song:hover {
+  background: var(--surface-hi);
+  color: var(--text);
+  border-color: var(--line-hi);
+}
+
+.form-songs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* Each song row is now two stacked sub-rows: the main fields (title /
+   artist / duration / remove), and underneath, a single full-width
+   audio-URL input. The URL row is optional — leaving it blank just
+   means the song isn't playable. */
+.form-song-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.012);
+}
+.form-song-row .song-row-main {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 60px 26px;
+  gap: 6px;
+  align-items: center;
+}
+.form-song-row input {
+  padding: 8px 10px;
+  font-size: 13px;
+}
+.form-song-row .song-url {
+  font-family: var(--f-mono);
+  font-size: 12px;
+}
+.form-remove-song {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.form-remove-song:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--line);
+}
+
+/* Cover-image upload row: small square preview, an "upload" button
+   that proxies the hidden file input, and a "clear" link visible
+   only when an image is staged. */
+.form-cover-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.form-cover-preview {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.form-cover-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.form-cover-clear {
+  font-size: 12px;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  padding: 4px 6px;
+  border-radius: var(--r-sm);
+  transition: color .15s, background .15s;
+}
+.form-cover-clear:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.form-error {
+  background: rgba(217, 80, 65, 0.12);
+  border: 1px solid rgba(217, 80, 65, 0.3);
+  color: #f1c0bb;
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  font-size: 13px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+/* Mobile: stack the cover/mood pair, tighten the song row's columns. */
+@media (max-width: 540px) {
+  .form-overlay .modal-content.form-content {
+    max-width: none;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    border: 0;
+  }
+  .playlist-form { padding: 16px; gap: 12px; }
+  .form-grid { grid-template-columns: 1fr; gap: 12px; }
+  .form-song-row .song-row-main {
+    grid-template-columns: 1fr 1fr 56px 26px;
+    gap: 4px;
+  }
+}

@@ -1,0 +1,687 @@
+[
+  {
+    "id": "midnight-in-shoreditch",
+    "name": "midnight in shoreditch",
+    "author": "the late hours",
+    "coverKey": "midnight",
+    "likes": 24,
+    "liked": false,
+    "mood": "night drive",
+    "addedAt": "2026-06-01",
+    "songs": [
+      {
+        "title": "Dance With The Democrat",
+        "artist": "Boogie Belgique",
+        "duration": "3:30",
+        "file": "Boogie_Belgique_-_01_-_Dance_With_The_Democrat.mp3"
+      },
+      {
+        "title": "Stairway To The USSR",
+        "artist": "Boogie Belgique",
+        "duration": "2:47",
+        "file": "Boogie_Belgique_-_02_-_Stairway_To_The_USSR.mp3"
+      },
+      {
+        "title": "Once Have I",
+        "artist": "Boogie Belgique",
+        "duration": "3:56",
+        "file": "Boogie_Belgique_-_03_-_Once_Have_I.mp3"
+      },
+      {
+        "title": "Oh Lord",
+        "artist": "Boogie Belgique",
+        "duration": "4:20",
+        "file": "Boogie_Belgique_-_04_-_Oh_Lord.mp3"
+      },
+      {
+        "title": "The Little White Duck",
+        "artist": "Boogie Belgique",
+        "duration": "5:19",
+        "file": "Boogie_Belgique_-_05_-_The_Little_White_Duck.mp3"
+      },
+      {
+        "title": "Black Train",
+        "artist": "Boogie Belgique",
+        "duration": "5:10",
+        "file": "Boogie_Belgique_-_06_-_Black_Train.mp3"
+      },
+      {
+        "title": "Drop Out",
+        "artist": "Boogie Belgique",
+        "duration": "3:30",
+        "file": "Boogie_Belgique_-_07_-_Drop_Out.mp3"
+      },
+      {
+        "title": "The Getaway",
+        "artist": "Boogie Belgique",
+        "duration": "4:44",
+        "file": "Boogie_Belgique_-_08_-_The_Getaway.mp3"
+      },
+      {
+        "title": "Moriarty",
+        "artist": "Boogie Belgique",
+        "duration": "4:41",
+        "file": "Boogie_Belgique_-_09_-_Moriarty.mp3"
+      },
+      {
+        "title": "The Ogres",
+        "artist": "Boogie Belgique",
+        "duration": "2:59",
+        "file": "Boogie_Belgique_-_10_-_The_Ogres.mp3"
+      },
+      {
+        "title": "Boogieman Penthouse",
+        "artist": "Boogie Belgique",
+        "duration": "6:11",
+        "file": "Boogie_Belgique_-_11_-_Boogieman_Penthouse.mp3"
+      },
+      {
+        "title": "Blueberry Hill",
+        "artist": "Boogie Belgique",
+        "duration": "3:18",
+        "file": "Boogie_Belgique_-_12_-_Blueberry_Hill.mp3"
+      }
+    ],
+    "source": {
+      "provider": "Internet Archive",
+      "identifier": "DWK149",
+      "url": "https://archive.org/details/DWK149",
+      "albumTitle": "Blueberry Hill (LP)",
+      "albumArtist": "Boogie Belgique",
+      "year": "2012",
+      "license": "http://creativecommons.org/licenses/by-nc-nd/3.0/",
+      "subjects": [
+        "Boogie Belgique",
+        "Dusted Wax Kingdom",
+        "instrumental hip-hop",
+        "electro swing",
+        "jazz"
+      ],
+      "description": "The Belgian beatsmith and producer Boogie Belgique drops his debut album for Dusted Wax Kingdom. From top to bottom \"Blueberry Hill\" is filled up with electro swing moods, funky hip-hop rhythms and tasty jazzy samples.",
+      "trackCount": 12,
+      "totalSeconds": 3025
+    }
+  },
+  {
+    "id": "blue-hour-radio",
+    "name": "blue hour radio",
+    "author": "miles & co.",
+    "coverKey": "bluehour",
+    "likes": 12,
+    "liked": false,
+    "mood": "slow morning",
+    "addedAt": "2026-05-21",
+    "songs": [
+      {
+        "title": "Sketch No.1",
+        "artist": "Emil Davydov",
+        "duration": "2:38",
+        "file": "pcr089_01_emil_davydov_sketch_no1.mp3"
+      },
+      {
+        "title": "Sketch No.2",
+        "artist": "Emil Davydov",
+        "duration": "2:09",
+        "file": "pcr089_02_emil_davydov_sketch_no2.mp3"
+      },
+      {
+        "title": "Sketch No.3",
+        "artist": "Emil Davydov",
+        "duration": "3:07",
+        "file": "pcr089_03_emil_davydov_sketch_no3.mp3"
+      }
+    ],
+    "source": {
+      "provider": "Internet Archive",
+      "identifier": "pcr089EmilDavydov-Sketches",
+      "url": "https://archive.org/details/pcr089EmilDavydov-Sketches",
+      "albumTitle": "[PCR089] Emil Davydov - Sketches",
+      "albumArtist": "E. Davydov",
+      "year": "2011",
+      "license": "http://creativecommons.org/licenses/by-nd/3.0/de/",
+      "subjects": [
+        "Pharmacom Records",
+        "Experimental",
+        "Classic",
+        "Ambient"
+      ],
+      "description": "Experimental Classic Ambient",
+      "trackCount": 3,
+      "totalSeconds": 475
+    }
+  },
+  {
+    "id": "backseat-symphony",
+    "name": "backseat symphony",
+    "author": "anya v.",
+    "coverKey": "backseat",
+    "likes": 47,
+    "liked": false,
+    "mood": "workout",
+    "addedAt": "2026-04-17",
+    "songs": [
+      {
+        "title": "Intro / Im Herbst",
+        "artist": "Lethargie",
+        "duration": "6:27",
+        "file": "Lethargie-st_lp-01-Intro.Im_Herbst.mp3"
+      },
+      {
+        "title": "Abendgebet",
+        "artist": "Lethargie",
+        "duration": "1:54",
+        "file": "Lethargie-st_lp-02-Abendgebet.mp3"
+      },
+      {
+        "title": "Same Shit",
+        "artist": "Lethargie",
+        "duration": "4:44",
+        "file": "Lethargie-st_lp-03-Same_Shit.mp3"
+      },
+      {
+        "title": "Virus Wanted",
+        "artist": "Lethargie",
+        "duration": "1:53",
+        "file": "Lethargie-st_lp-04-Virus_Wanted.mp3"
+      },
+      {
+        "title": "Zuendstoff",
+        "artist": "Lethargie",
+        "duration": "3:16",
+        "file": "Lethargie-st_lp-05-Zuendstoff.mp3"
+      },
+      {
+        "title": "Der Freund",
+        "artist": "Lethargie",
+        "duration": "3:25",
+        "file": "Lethargie-st_lp-06-Der_Freund.mp3"
+      },
+      {
+        "title": "Like",
+        "artist": "Lethargie",
+        "duration": "1:54",
+        "file": "Lethargie-st_lp-07-Like.mp3"
+      },
+      {
+        "title": "Sicher",
+        "artist": "Lethargie",
+        "duration": "1:56",
+        "file": "Lethargie-st_lp-08-Sicher.mp3"
+      },
+      {
+        "title": "Materialschlacht",
+        "artist": "Lethargie",
+        "duration": "3:41",
+        "file": "Lethargie-st_lp-09-Materialschlacht.mp3"
+      },
+      {
+        "title": "Prisoner of Mind",
+        "artist": "Lethargie",
+        "duration": "3:57",
+        "file": "Lethargie-st_lp-10-Prisoner_of_Mind.mp3"
+      },
+      {
+        "title": "I Hate You",
+        "artist": "Lethargie",
+        "duration": "3:42",
+        "file": "Lethargie-st_lp-11-I_Hate_You.mp3"
+      }
+    ],
+    "source": {
+      "provider": "Internet Archive",
+      "identifier": "Lethargie.LP",
+      "url": "https://archive.org/details/Lethargie.LP",
+      "albumTitle": "Lethargie LP",
+      "albumArtist": "Lethargie",
+      "year": null,
+      "license": "http://creativecommons.org/licenses/by-nc-nd/2.0/de/",
+      "subjects": [
+        "netlabel-g16",
+        "crust",
+        "crustcore",
+        "crustrock",
+        "punk",
+        "hardcore",
+        "rock"
+      ],
+      "description": "D-Beat-HC-Crust-Inferno. Recorded 2008 in Leipzig, Germany. Out now on www.myspace.com/netlabel_g16 . Home: www.myspace.com/lethargieonline",
+      "trackCount": 11,
+      "totalSeconds": 2209
+    }
+  },
+  {
+    "id": "glass-cathedral",
+    "name": "glass cathedral",
+    "author": "coen drake",
+    "coverKey": "cathedral",
+    "likes": 8,
+    "liked": false,
+    "mood": "focus",
+    "addedAt": "2026-05-09",
+    "songs": [
+      {
+        "title": "Ice voice",
+        "artist": "Sergi Boal",
+        "duration": "3:25",
+        "file": "01-NS051-Ice_Voice.mp3"
+      },
+      {
+        "title": "Percorso",
+        "artist": "Sergi Boal",
+        "duration": "3:50",
+        "file": "02-NS051-Percorso.mp3"
+      },
+      {
+        "title": "Yorke (to Thom Yorke)",
+        "artist": "Sergi Boal",
+        "duration": "5:17",
+        "file": "03-NS051-Yorke_to_Thom_Yorke.mp3"
+      },
+      {
+        "title": "Frontera",
+        "artist": "Sergi Boal",
+        "duration": "4:22",
+        "file": "04-NS051-Frontera.mp3"
+      },
+      {
+        "title": "Fukushima",
+        "artist": "Sergi Boal",
+        "duration": "5:28",
+        "file": "05-NS051-Fukushima.mp3"
+      },
+      {
+        "title": "The incident of the bell",
+        "artist": "Sergi Boal",
+        "duration": "4:00",
+        "file": "06-NS051-The_incident_of_the_bell.mp3"
+      },
+      {
+        "title": "Orecchio di Dioniso",
+        "artist": "Sergi Boal",
+        "duration": "3:53",
+        "file": "07-NS051-Orecchio_di_Dioniso.mp3"
+      },
+      {
+        "title": "Nylon & Turtle",
+        "artist": "Sergi Boal",
+        "duration": "3:52",
+        "file": "08-NS051-Nylon_and_Turtle.mp3"
+      },
+      {
+        "title": "Is there anybody out there?",
+        "artist": "Sergi Boal",
+        "duration": "4:05",
+        "file": "09-NS051-Is_there_anybody_out_there.mp3"
+      }
+    ],
+    "source": {
+      "provider": "Internet Archive",
+      "identifier": "NS051",
+      "url": "https://archive.org/details/NS051",
+      "albumTitle": "Nylon & Turtle",
+      "albumArtist": "Sergi Boal",
+      "year": "2012",
+      "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "subjects": [
+        "no-source",
+        "acoustic",
+        "classical guitar",
+        "instrumental"
+      ],
+      "description": "Sergi Boal (from Barcelona) is an accomplished classical guitarist. No-Source and Acustronica are pleased to bring you his debut album, \"Nylon & Turtle\". This album contains nine original compositions that solely focus on Boal's acoustic guitar playing. Plucking and strumming fight for dominance in each of these dynamic tracks. Boal is quoted as saying that he is influenced in some way by the music of Baden Powell, Brad Meldauh, Radiohead, and Jose Gonzalez. Tracks like \"Yorke (to Thom Yorke), directly reference Radiohead, While \"Is there anybody out there?\" might be a nod to the Pink Floyd tr",
+      "trackCount": 9,
+      "totalSeconds": 2292
+    }
+  },
+  {
+    "id": "warm-static",
+    "name": "warm static",
+    "author": "vesper",
+    "coverKey": "warm",
+    "likes": 33,
+    "liked": false,
+    "mood": "commute",
+    "addedAt": "2026-05-30",
+    "songs": [
+      {
+        "title": "Lush Life",
+        "artist": "Poldoore",
+        "duration": "2:50",
+        "file": "Poldoore_-_01_-_Lush_Life.mp3"
+      },
+      {
+        "title": "Paradise",
+        "artist": "Poldoore",
+        "duration": "2:38",
+        "file": "Poldoore_-_02_-_Paradise.mp3"
+      },
+      {
+        "title": "Eazy Livin'",
+        "artist": "Poldoore",
+        "duration": "3:37",
+        "file": "Poldoore_-_03_-_Eazy_Livin.mp3"
+      },
+      {
+        "title": "Dream On",
+        "artist": "Poldoore",
+        "duration": "3:30",
+        "file": "Poldoore_-_04_-_Dream_On.mp3"
+      },
+      {
+        "title": "The Jitterbug",
+        "artist": "Poldoore",
+        "duration": "3:03",
+        "file": "Poldoore_-_05_-_The_Jitterbug.mp3"
+      },
+      {
+        "title": "Pacific",
+        "artist": "Poldoore",
+        "duration": "2:11",
+        "file": "Poldoore_-_06_-_Pacific.mp3"
+      },
+      {
+        "title": "Providence",
+        "artist": "Poldoore",
+        "duration": "3:21",
+        "file": "Poldoore_-_07_-_Providence.mp3"
+      }
+    ],
+    "source": {
+      "provider": "Internet Archive",
+      "identifier": "DWK155",
+      "url": "https://archive.org/details/DWK155",
+      "albumTitle": "Lush Life (EP)",
+      "albumArtist": "Poldoore",
+      "year": "2012",
+      "license": "http://creativecommons.org/licenses/by-nc-nd/3.0/",
+      "subjects": [
+        "Poldoore",
+        "Dusted Wax Kingdom",
+        "instrumental hip-hop",
+        "trip-hop",
+        "lo-fi",
+        "beats"
+      ],
+      "description": "The Belgian DJ and producer Poldoore has a special delivery for the Dusted Wax Kingdom's audience. \"Lush Life\" (EP) is a fresh music cocktail of positive summer vibes, mild acid jazz and frisky funky beats.",
+      "trackCount": 7,
+      "totalSeconds": 1270
+    }
+  },
+  {
+    "id": "soft-engine",
+    "name": "soft engine",
+    "author": "the late hours",
+    "coverKey": "engine",
+    "likes": 16,
+    "liked": false,
+    "mood": "focus",
+    "addedAt": "2026-06-04",
+    "songs": [
+      {
+        "title": "Christmas with Mr. Rice",
+        "artist": "Multi-Panel",
+        "duration": "4:01",
+        "file": "01-NS050-Multi-Panel_Christmas-With-Mr-Rice.mp3"
+      },
+      {
+        "title": "Prior To (alt. ver.)",
+        "artist": "Full-Source",
+        "duration": "2:48",
+        "file": "02-NS050-Full-Source_Prior-To-alt-ver.mp3"
+      },
+      {
+        "title": "Swing Low",
+        "artist": "Cocolixe",
+        "duration": "3:20",
+        "file": "03-NS050-Cocolixe_Swing-Low.mp3"
+      },
+      {
+        "title": "The Light Between",
+        "artist": "Tardiss",
+        "duration": "3:03",
+        "file": "04-NS050-Tardiss_The-Light-Between.mp3"
+      },
+      {
+        "title": "Colonial Builder's Master (For Felsenmeer) v.2",
+        "artist": "pEACEFANg",
+        "duration": "3:02",
+        "file": "05-NS050-pEACEFANg_Colonial-Builders-Master-For-Felsenmeer-v2.mp3"
+      },
+      {
+        "title": "Daylights Prior To Morning Sun",
+        "artist": "Limited Taste & Full-Source",
+        "duration": "3:56",
+        "file": "06-NS050-Limited-Taste_Full-Source_Daylights-Prior-To-Morning-Sun.mp3"
+      },
+      {
+        "title": "Basement",
+        "artist": "Naked House",
+        "duration": "1:48",
+        "file": "07-NS050-Naked-House_Basement.mp3"
+      },
+      {
+        "title": "Lake",
+        "artist": "MeDo's Little Trap",
+        "duration": "4:14",
+        "file": "08-NS050-Medos-Little-Trap_Lake.mp3"
+      },
+      {
+        "title": "Journey",
+        "artist": "Age",
+        "duration": "1:26",
+        "file": "09-NS050-Age_Journey.mp3"
+      },
+      {
+        "title": "Chipembere (trad.)",
+        "artist": "Artie Appleseed",
+        "duration": "2:34",
+        "file": "10-NS050-Artie-Appleseed_Chipembere-trad.mp3"
+      },
+      {
+        "title": "Clouds in the Shape of Clouds",
+        "artist": "Ross Baker",
+        "duration": "3:06",
+        "file": "11-NS050-Ross-Baker_Clouds-in-the-Shape-of-Clouds.mp3"
+      },
+      {
+        "title": "Worm",
+        "artist": "Book of Burrow",
+        "duration": "1:37",
+        "file": "12-NS050-Book-of-Burrow_Worm.mp3"
+      }
+    ],
+    "source": {
+      "provider": "Internet Archive",
+      "identifier": "NS050",
+      "url": "https://archive.org/details/NS050",
+      "albumTitle": "Another Day, Another Way",
+      "albumArtist": "No-Source Netlabel",
+      "year": "2012",
+      "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "subjects": [
+        "no-source",
+        "acoustic",
+        "electronic",
+        "compilation"
+      ],
+      "description": "To celebrate fifty releases on No-Source Netlabel, we've compiled a new compilation consisting on No-Source artists, exclusive tracks, and upcoming bands from the net scene. \"Another Day, Another Way\" really shows off the sound that is No-Source, with quieter, acoustic driven music, and a good dose of electronics. The compilation kicks off with Multi-Panel's \"Christmas with Mr. Rice.\" This is no holiday song though with washed out acoustics and electronics stuck in a reverb blender. \"Prior To (alt. ver.)\" is a previously unreleased version of \"Prior To\" that was recorded between the original 2",
+      "trackCount": 12,
+      "totalSeconds": 2095
+    }
+  },
+  {
+    "id": "held-breath",
+    "name": "held breath",
+    "author": "anya v.",
+    "coverKey": "held",
+    "likes": 21,
+    "liked": false,
+    "mood": "slow morning",
+    "addedAt": "2026-04-29",
+    "songs": [
+      {
+        "title": "Eu Pisei Na Pedra",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "4:06",
+        "file": "foot018_01-chico_correa_electronic_band-eu_pisei_na_pedra.mp3"
+      },
+      {
+        "title": "Cantador",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "1:31",
+        "file": "foot018_02-chico_correa_electronic_band-cantador.mp3"
+      },
+      {
+        "title": "Manganga",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "4:24",
+        "file": "foot018_03-chico_correa_electronic_band-manganga.mp3"
+      },
+      {
+        "title": "Bossinha",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "3:17",
+        "file": "foot018_04-chico_correa_electronic_band-bossinha.mp3"
+      },
+      {
+        "title": "Coco De Elevador",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "4:12",
+        "file": "foot018_05-chico_correa_electronic_band-coco_de_elevador.mp3"
+      },
+      {
+        "title": "Terra",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "3:14",
+        "file": "foot018_06-chico_correa_electronic_band-terra.mp3"
+      },
+      {
+        "title": "Baiao Lo-fi",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "5:28",
+        "file": "foot018_07-chico_correa_electronic_band-baiao_lo-fi.mp3"
+      },
+      {
+        "title": "Lele",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "3:59",
+        "file": "foot018_08-chico_correa_electronic_band-lele.mp3"
+      },
+      {
+        "title": "Odete (remix 2006)",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "4:47",
+        "file": "foot018_09-chico_correa_electronic_band-odete_remix_2006.mp3"
+      },
+      {
+        "title": "Baile Muderno",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "3:13",
+        "file": "foot018_10-chico_correa_electronic_band-baile_muderno.mp3"
+      },
+      {
+        "title": "Descanso De Tela",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "2:16",
+        "file": "foot018_11-chico_correa_electronic_band-descanso_de_tela.mp3"
+      },
+      {
+        "title": "Cantador (Armando Antonio Remix)",
+        "artist": "Chico Correa & Electronic Band",
+        "duration": "5:17",
+        "file": "foot018_12-chico_correa_electronic_band-cantador_armando_antonio_remix.mp3"
+      }
+    ],
+    "source": {
+      "provider": "Internet Archive",
+      "identifier": "foot018",
+      "url": "https://archive.org/details/foot018",
+      "albumTitle": "Chico Correa & Electronic Band [foot018]",
+      "albumArtist": "Chico Correa & Electronic Band",
+      "year": "2006",
+      "license": "http://creativecommons.org/licenses/by-nc-sa/2.5/",
+      "subjects": [
+        "Latin",
+        "World",
+        "Acoustic",
+        "Electronic",
+        ""
+      ],
+      "description": "Chico Correa & Electronic Band, the first artist from Brazil! Here's their self-titled album with latin flavour and electronic sound. It brings us an enjoyable trip.",
+      "trackCount": 12,
+      "totalSeconds": 2744
+    }
+  },
+  {
+    "id": "bridge-in-fog",
+    "name": "bridge in fog",
+    "author": "maya / vesper",
+    "coverKey": "bridge",
+    "likes": 5,
+    "liked": false,
+    "mood": "night drive",
+    "addedAt": "2026-03-12",
+    "songs": [
+      {
+        "title": "Winter Flowers",
+        "artist": "Poodleplay Arkestra",
+        "duration": "3:37",
+        "file": "1-Winter_Flowers.mp3"
+      },
+      {
+        "title": "Twenty Squares Of Light",
+        "artist": "Poodleplay Arkestra",
+        "duration": "4:11",
+        "file": "2-Twenty_Squares_Of_Light.mp3"
+      },
+      {
+        "title": "Theory Of Colour",
+        "artist": "Poodleplay Arkestra",
+        "duration": "4:31",
+        "file": "3-Theory_Of_Colour.mp3"
+      },
+      {
+        "title": "Interlude",
+        "artist": "Poodleplay Arkestra",
+        "duration": "1:44",
+        "file": "4-Interlude.mp3"
+      },
+      {
+        "title": "Mosquito",
+        "artist": "Poodleplay Arkestra",
+        "duration": "3:32",
+        "file": "5-Mosquito.mp3"
+      },
+      {
+        "title": "A Sister For Clare",
+        "artist": "Poodleplay Arkestra",
+        "duration": "3:06",
+        "file": "6-A_Sister_For_Clare.mp3"
+      },
+      {
+        "title": "Metal For Blue Sky Thinkers",
+        "artist": "Poodleplay Arkestra",
+        "duration": "3:48",
+        "file": "7-Metal_For_Blue_Sky_Thinkers.mp3"
+      }
+    ],
+    "source": {
+      "provider": "Internet Archive",
+      "identifier": "PoodleplayArkestra-TheoryOfColour",
+      "url": "https://archive.org/details/PoodleplayArkestra-TheoryOfColour",
+      "albumTitle": "Theory Of Colour",
+      "albumArtist": "Poodleplay Arkestra",
+      "year": "2012",
+      "license": "http://creativecommons.org/licenses/by-nc-nd/3.0/",
+      "subjects": [
+        "poodleplay arkestra",
+        "bfw",
+        "theory of colour",
+        "ambient, experimental"
+      ],
+      "description": "The new collection of beautiful, peaceful songs from Manchester's Poodleplay Arkestra. A new release from Poodleplay Arkestra is always something to look forward to. Their music, although influenced by many, Jon Hassell and Brian Eno among them, inhabits a special place all of its own. Guitars, piano, strings and soundscapes cascade around you. A wonderful piece of work. More at poodleplayarkestra.bandcamp.com",
+      "trackCount": 7,
+      "totalSeconds": 1469
+    }
+  }
+]
