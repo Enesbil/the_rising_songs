@@ -1,5 +1,7 @@
 # the rising songs
 
+DEPLOYMENT LINK: https://the-rising-songs.onrender.com/index.html
+
 A small music playlist explorer. Browse a shelf of curated playlists, open one to see its tracks, like the ones you want, shuffle the songs, play tracks in the browser, and get an AI-written description of the vibe.
 
 Built with vanilla HTML, CSS, and JavaScript. No frameworks, no build step.
