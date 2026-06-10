@@ -1,8 +1,9 @@
 # personal working files, not part of the deliverable
-ai_rules.md
-assignment_context.md
-inspiration/
-mockups/
+# (rules, assignment context, inspiration screenshots, design mockups)
+_personal/
+
+# secrets, never commit
+config.js
 
 # os / editor cruft
 .DS_Store
